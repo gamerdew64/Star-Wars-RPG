@@ -1,0 +1,77 @@
+<!-- https://www.youtube.com/watch?v=LlHF7o9IFB4&feature=youtu.be -->
+
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <title>Star Wars RPG Game!</title>
+
+  <!-- Google Fonts -->
+  <!-- Link to custom Google Font (that kind of gives a Star Wars feel) -->
+  <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+  <!-- CSS - Game Styling -->
+  <!-- Link to CSS file for custom styling - no bootstrap -->
+  <link rel="stylesheet" type="text/css" href="assets/style.css">
+  <!-- JQuery -->
+  <!-- Common Javascript framework with built-in functionality -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <!-- Javascript - Game Logic -->
+  <!-- Link to Javascript for functionality in webpage -->
+  <script type="text/javascript" src="assets/game.js"></script>
+</head>
+
+<body>
+  <!-- <div id="loader">
+      <img src="assets/gifs/loadingScreen.gif" width="100%">
+  </div> -->
+
+  <div id="musicGroup">
+    <audio id="musicToggle" autoplay="autoplay" controls="controls">
+       <source src="assets/sounds/duelOfTheFates.mp3"/>
+   </audio>
+   <p>Toggle the Fighting Music!</p>
+ </div>
+
+  <!-- Title section -->
+  <div class="gameTitle">Star Wars RPG Game!</div>
+
+  <!-- Main Game -->
+  <div id="mainGameSection"></div>
+
+    <!-- Character Placement - Initial Placement -->
+    <div id="characterSelectionSection">
+      <div class="sectionTitle">Choose your Character!</div>
+    </div>
+
+    <!-- Character Placement - After Getting Selected -->
+    <div id="selectedCharacterSection">
+      <div class="sectionTitle">Selected Character</div>
+
+      <!-- Character Placement - Where the selected characger will actually appear -->
+      <div id="selectedCharacter"></div>
+    </div>
+
+    <div id="currentEnemies">
+      <div class="sectionTitle">Current Enemies Available to Attack</div>
+    </div>
+
+    <div class="sectionTitle">Fighting Section</div>
+    <div id="fightingSection">
+      <button id="attackButton">Attack Opponent!</button>
+    </div>
+
+    <div id="action">
+      <div class="characterSection">
+        <div class="sectionTitle">Defender</div>
+
+        <!-- Spawning Location of Defender. -->
+        <div id="defender"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Messages -->
+  <div id="gameMessage"></div>
+
+</body>
+</html>

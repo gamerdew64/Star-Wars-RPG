@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Loading Screen</title>
+<style>
+
+body{
+margin:0;
+padding:0;
+text-align:center;
+background-color:#FEB41C;
+}
+
+body h1{
+color:#363F45;
+font-family:Arial, Helvetica, sans-serif;
+font-size:3em;
+}
+
+#loader{
+position:fixed;
+top:0;
+width:100%;
+background-color:white;
+height:100%;
+text-align:center;
+margin:0;
+padding:0;
+overflow:hidden;
+}
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script>
+
+  $(window).load(function() {
+      // This will run the loading gif for 5 seconds
+      $("#loader").delay(5000).fadeOut("fast");
+  });
+
+  // $(window).load(function() {
+  //     $("#loader").delay(3000).animate({
+  //         opacity:0,
+  //         width: 0,
+  //         height:0
+  //     }, 500);
+  // });
+
+</script>
+</head>
+<body>
+<div id="loader">
+    <!-- Examples of different loading screens -->
+    <!-- <img src="assets/gifs/tenor.gif" width="50%"> -->
+    <!-- <img src="assets/gifs/bunnyLoading.gif" width="50%"> -->
+    <!-- <img src="assets/gifs/hexigonsLoading.gif" width="50%"> -->
+    <!-- <img src="assets/gifs/secondsLoading.gif" width="50%"> -->
+    <img src="assets/gifs/loadingScreen2.gif" width="100%">
+</div>
+<h1>Page Loaded Successfully :D</h1>
+</body>
+</html>

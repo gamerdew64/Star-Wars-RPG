@@ -1,0 +1,110 @@
+.gameTitle
+{
+  font-family: 'Russo One', "Times New Roman", Times, sans-serif;
+  font-size:300%;
+  text-align:center;
+  color: #000;
+  text-shadow:
+  -1px -1px 0 #fff,
+  1px -1px 0 #fff,
+  -1px 1px 0 #fff,
+  1px 1px 0 #fff;
+}
+
+.sectionTitle
+{
+  font-family: 'Russo One', "Times New Roman", Times, sans-serif;
+  font-size:200%;
+  color: #000;
+  text-shadow:
+  -1px -1px 0 #fff,
+  1px -1px 0 #fff,
+  -1px 1px 0 #fff,
+  1px 1px 0 #fff;
+}
+
+#musicGroup {
+  float:right;
+}
+
+#musicGroup p {
+  padding-left: 50px;
+  padding-top: 45px;
+}
+
+#musicToggle {
+  float: right;
+}
+
+/* #selectedCharacter {
+  display: inline-block;
+  border-style: solid;
+  border-color: #0000FF;
+  border-width: 5px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.target-enemy {
+  display: inline-block;
+  border-style: solid;
+  border-color: #00FF00;
+  border-width: 5px;
+  cursor: pointer;
+  background-color: #fff;
+} */
+
+.character {
+  display: inline-block;
+  border-style: solid;
+  border-color: #FF0000;
+  border-width: 5px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+img {
+  height: 100px;
+  width: 150px;
+  border-radius: 5px;
+}
+
+body
+{
+  font-family: 'Russo One', "Times New Roman", Times, sans-serif;
+  color: #000;
+  text-shadow:
+  -1px -1px 0 #fff,
+  1px -1px 0 #fff,
+  -1px 1px 0 #fff,
+  1px 1px 0 #fff;
+  background: url("images/starWarsBackgroundImg.jpg") no-repeat center center fixed;
+  background-size:cover;
+  animation-name: backgroundTransition;
+  animation-duration: 40s;
+  animation-iteration-count: 25; /* will continue for roughly 15 minutes or so */
+}
+
+/* Start background animation section*/
+@keyframes backgroundTransition {
+
+  25% {
+    background: url("images/starWarsBackgroundImg2.jpg") no-repeat center center fixed;
+    background-size:cover;
+  }
+
+  50% {
+    background: url("images/starWarsBackgroundImg3.jpg") no-repeat center center fixed;
+    background-size:cover;
+  }
+
+  75% {
+    background: url("images/starWarsBackgroundImg4.jpg") no-repeat center center fixed;
+    background-size:cover;
+  }
+
+  100% {
+    background: url("images/starWarsBackgroundImg5.jpg") no-repeat center center fixed;
+    background-size:cover;
+  }
+}
