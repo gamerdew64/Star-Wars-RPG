@@ -1,12 +1,8 @@
-// $(window).load(function()
-// {
-//     // This will run the loading gif for 5 seconds
-//     $("#loader").delay(5000).fadeOut("fast");
-// });
-
 // This code will need to be executed when the DOM has fully loaded
 $(document).ready(function()
 {
+  // This function controls the timeing and fade of our loading gif
+  $("#loader").delay(5000).fadeOut("fast");
 
   // Sound Clips - Attack, Defend, and End Music
   var lightsaberAttackCharacter = new Audio("assets/sounds/lightsaberAttackCharacter.mp3");
@@ -69,28 +65,6 @@ $(document).ready(function()
   var killCount=0;
   // This will console log out the character's base info and stats to the console. Commenting out.
   // console.log(characters)
-
-
-
-  // //Playing around with "mousehover" instead of "click"
-  // $("-----").on("mouseover", function()
-  // {
-  //   // When you mouseover a character, a vocal clip from them will play
-  // });
-  //
-  // $("-----").on("mouseover", function()
-  // {
-  //   // When you mouseover a character, a vocal clip from them will play
-  // });
-  //
-  // $("-----").on("mouseover", function()
-  // {
-  //   // When you mouseover a character, a vocal clip from them will play
-  // });
-
-
-
-
 
   // This function will render a character div to the page.
   // The character rendered and the area to which they are rendered.
@@ -269,7 +243,7 @@ $(document).ready(function()
         }
       }
       //This should show all the objects except the one that was chosen.
-      console.log(combatants);
+      // console.log(combatants);
 
       //Render characters to new section and hide the character select div
       $("#characterSelectionSection").hide();
@@ -286,7 +260,7 @@ $(document).ready(function()
 
       // Creates messages for our attack and our opponents counter attack.
       var attackMessage = ("You attacked " + currDefender.name + " for " + (currSelectedCharacter.attack * turnCounter) + " damage.");
-      var counterAttackMessage = (currDefender.name + " attacked you back for " + currDefender.enemyAttackBack + " damage.");
+      var counterAttackMessage = (currDefender.name + " attacked you back for " + currDefender.enemyRetaliate + " damage.");
       renderMessage("clearMessage");
 
       // Reduce defender's health and attack value.
@@ -301,16 +275,16 @@ $(document).ready(function()
 
         // Render the combat messages.
         renderMessage(attackMessage);
-        rendermessage(counterAttackMessage);
+        renderMessage(counterAttackMessage);
 
         // Reduce your health by the opponent's attack value.
-        currSelectedCharacter.health -= currDefender.enemyAttackBack;
+        currSelectedCharacter.health -= currDefender.enemyRetaliate;
 
         // Render the player's updated character card.
         renderCharacters(currSelectedCharacter, "enemyDamage");
 
         //If you have less than zero health, the game ends. We call the restartGame function here.
-        if (currSelectCharacter.health<=0)
+        if (currSelectedCharacter.health<=0)
         {
           renderMessage("clearMessage");
           restartGame("You have been defeated. Please try again!");
