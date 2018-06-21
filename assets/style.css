@@ -1,0 +1,139 @@
+.gameTitle
+{
+  font-family: 'Russo One', "Times New Roman", Times, sans-serif;
+  font-size:300%;
+  text-align:center;
+  color: #000;
+  text-shadow:
+  -1px -1px 0 #fff,
+  1px -1px 0 #fff,
+  -1px 1px 0 #fff,
+  1px 1px 0 #fff;
+}
+
+.sectionTitle
+{
+  font-family: 'Russo One', "Times New Roman", Times, sans-serif;
+  font-size:200%;
+  color: #000;
+  text-shadow:
+  -1px -1px 0 #fff,
+  1px -1px 0 #fff,
+  -1px 1px 0 #fff,
+  1px 1px 0 #fff;
+}
+
+/* This is regarding the position of the music controller */
+#musicGroup
+{
+  float:right;
+}
+
+/* This is regarding the styling of the text that is placed under the music controller */
+#musicGroup p
+{
+  padding-left: 50px;
+  padding-top: 45px;
+}
+
+#musicToggle
+{
+  float: right;
+}
+
+/* This is the styling of the loading gif */
+#loader img
+{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.character
+{
+  display: inline-block;
+  border-style: solid;
+  border-color: #0000FF;
+  border-width: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  animation-name: borderColorTransition;
+  animation-duration: 15s;
+  animation-iteration-count: 25; /* will continue for roughly 15 minutes or so */
+}
+
+img
+{
+  height: 100px;
+  width: 150px;
+  border-radius: 5px;
+}
+
+body
+{
+  font-family: 'Russo One', "Times New Roman", Times, sans-serif;
+  color: #000;
+  text-shadow:
+  -1px -1px 0 #fff,
+  1px -1px 0 #fff,
+  -1px 1px 0 #fff,
+  1px 1px 0 #fff;
+  background: url("../images/starWarsBackgroundImg.jpg") no-repeat center center fixed;
+  animation-name: backgroundTransition;
+  animation-duration: 40s;
+  animation-iteration-count: 25; /* will continue for roughly 15 minutes or so */
+}
+
+/* Start background animation section*/
+/* This section will cycle through four different background images (each at 25%) */
+@keyframes backgroundTransition
+{
+  25%
+  {
+    background: url("../images/starWarsBackgroundImg2.jpg") no-repeat center center fixed;
+    background-size:cover;
+  }
+
+  50%
+  {
+    background: url("../images/starWarsBackgroundImg3.jpg") no-repeat center center fixed;
+    background-size:cover;
+  }
+
+  75%
+  {
+    background: url("../images/starWarsBackgroundImg4.jpg") no-repeat center center fixed;
+    background-size:cover;
+  }
+
+  100%
+  {
+    background: url("../images/starWarsBackgroundImg5.jpg") no-repeat center center fixed;
+    background-size:cover;
+  }
+}
+
+/* Cycles through different colors for the character divs */
+/* This section will cycle through four different background images (each at 33%) */
+@keyframes borderColorTransition
+{
+  33%
+  {
+  border-color: #FF0000;
+  }
+
+  66%
+  {
+  border-color: #0000FF;
+  }
+
+  100%
+  {
+  border-color: #006400;
+  }
+}
