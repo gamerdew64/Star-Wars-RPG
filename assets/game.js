@@ -8,8 +8,6 @@ $(document).ready(function()
   var lightsaberAttackCharacter = new Audio("assets/sounds/lightsaberAttackCharacter.mp3");
   var lightsaberAttackByDefender = new Audio("assets/sounds/lightsaberAttackByDefender.mp3");
   var beatOpponent = new Audio("assets/sounds/victoryChime.mp3");
-  // The following isn't needed, because the lose theme will play if our character's health hits 0 anyway. This would just be redundant.
-  // var loseToOpponent = new Audio("assets/sounds/defeatChime.mp3");
   var loseTheme = new Audio("assets/sounds/starWarsDefeatMusic.mp3");
   var winTheme = new Audio("assets/sounds/starWarsVictoryMusic.mp3");
 
@@ -54,7 +52,7 @@ $(document).ready(function()
   };
 
   // This will populate when the player selects the character.
-  var currSelectedCharacter;
+  var playableCharacter;
   // This will populate with all of the characters that the player didn't select.
   var combatants = [];
   // This will populate when the player chooses an opponent.
@@ -230,10 +228,10 @@ $(document).ready(function()
     console.log(name);
 
     // If a user has not yet selected a character, do this:
-    if (!currSelectedCharacter)
+    if (!playableCharacter)
     {
-      // We populate currSelectedCharacter with the selected character's information
-      currSelectedCharacter = characters[name];
+      // We populate playableCharacter with the selected character's information
+      playableCharacter = characters[name];
       // Loop through the remaining characters, and push them to to the combatants array
       for (var key in characters)
       {
@@ -247,7 +245,7 @@ $(document).ready(function()
 
       //Render characters to new section and hide the character select div
       $("#characterSelectionSection").hide();
-      renderCharacters(currSelectedCharacter, "#selectedCharacter");
+      renderCharacters(playableCharacter, "#selectedCharacter");
       renderCharacters(combatants, "#currentEnemies");
     }
   });
@@ -259,13 +257,13 @@ $(document).ready(function()
     {
 
       // Creates messages for our attack and our opponents counter attack.
-      var attackMessage = ("You attacked " + currDefender.name + " for " + (currSelectedCharacter.attack * turnCounter) + " damage.");
+      var attackMessage = ("You attacked " + currDefender.name + " for " + (playableCharacter.attack * turnCounter) + " damage.");
       var counterAttackMessage = (currDefender.name + " attacked you back for " + currDefender.enemyRetaliate + " damage.");
       renderMessage("clearMessage");
 
       // Reduce defender's health and attack value.
       // The "-=" is a shortcut for updating the variable on the left ("currDefender.health") equal to the variable on the right subtracted from the variable on the left ("currDefender.health")
-      currDefender.health -= (currSelectedCharacter.attack * turnCounter);
+      currDefender.health -= (playableCharacter.attack * turnCounter);
 
       // If the opponent still has health, do this:
       if (currDefender.health>0)
@@ -278,13 +276,13 @@ $(document).ready(function()
         renderMessage(counterAttackMessage);
 
         // Reduce your health by the opponent's attack value.
-        currSelectedCharacter.health -= currDefender.enemyRetaliate;
+        playableCharacter.health -= currDefender.enemyRetaliate;
 
         // Render the player's updated character card.
-        renderCharacters(currSelectedCharacter, "enemyDamage");
+        renderCharacters(playableCharacter, "enemyDamage");
 
         //If you have less than zero health, the game ends. We call the restartGame function here.
-        if (currSelectedCharacter.health<=0)
+        if (playableCharacter.health<=0)
         {
           renderMessage("clearMessage");
           restartGame("You have been defeated. Please try again!");
