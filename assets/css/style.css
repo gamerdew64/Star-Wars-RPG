@@ -23,11 +23,13 @@
   1px 1px 0 #fff;
 }
 
+/* This is regarding the position of the music controller */
 #musicGroup
 {
   float:right;
 }
 
+/* This is regarding the styling of the text that is placed under the music controller */
 #musicGroup p
 {
   padding-left: 50px;
@@ -81,7 +83,7 @@ body
   1px -1px 0 #fff,
   -1px 1px 0 #fff,
   1px 1px 0 #fff;
-  background: url("images/starWarsBackgroundImg.jpg") no-repeat center center fixed;
+  background: url("../images/starWarsBackgroundImg.jpg") no-repeat center center fixed;
   animation-name: backgroundTransition;
   animation-duration: 40s;
   animation-iteration-count: 25; /* will continue for roughly 15 minutes or so */
@@ -93,29 +95,31 @@ body
 {
   25%
   {
-    background: url("images/starWarsBackgroundImg2.jpg") no-repeat center center fixed;
+    background: url("../images/starWarsBackgroundImg2.jpg") no-repeat center center fixed;
     background-size:cover;
   }
 
   50%
   {
-    background: url("images/starWarsBackgroundImg3.jpg") no-repeat center center fixed;
+    background: url("../images/starWarsBackgroundImg3.jpg") no-repeat center center fixed;
     background-size:cover;
   }
 
   75%
   {
-    background: url("images/starWarsBackgroundImg4.jpg") no-repeat center center fixed;
+    background: url("../images/starWarsBackgroundImg4.jpg") no-repeat center center fixed;
     background-size:cover;
   }
 
   100%
   {
-    background: url("images/starWarsBackgroundImg5.jpg") no-repeat center center fixed;
+    background: url("../images/starWarsBackgroundImg5.jpg") no-repeat center center fixed;
     background-size:cover;
   }
 }
 
+/* Cycles through different colors for the character divs */
+/* This section will cycle through four different background images (each at 33%) */
 @keyframes borderColorTransition
 {
   33%

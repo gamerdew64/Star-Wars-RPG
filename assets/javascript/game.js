@@ -5,10 +5,14 @@ $(document).ready(function()
   $("#loader").delay(5000).fadeOut("fast");
 
   // Sound Clips - Attack, Defend, and End Music
+  // Attack sounds
   var lightsaberAttackCharacter = new Audio("assets/sounds/lightsaberAttackCharacter.mp3");
   var lightsaberAttackByDefender = new Audio("assets/sounds/lightsaberAttackByDefender.mp3");
+  // Sound that plays when an opponent is defeated
   var beatOpponent = new Audio("assets/sounds/victoryChime.mp3");
+  // Sound that plays when the chosen player loses the game
   var loseTheme = new Audio("assets/sounds/starWarsDefeatMusic.mp3");
+  // Sound that plays when the chosen player wins the game
   var winTheme = new Audio("assets/sounds/starWarsVictoryMusic.mp3");
 
   var characters =
@@ -54,11 +58,11 @@ $(document).ready(function()
   // This will populate when the player selects the character.
   var playableCharacter;
   // This will populate with all of the characters that the player didn't select.
-  var combatants = [];
+  var fighters = [];
   // This will populate when the player chooses an opponent.
-  var currDefender;
+  var currentDefender;
   // This will keep track of our turns during combat and will be used for calculating damage.
-  var turnCounter=1;
+  var turnDamageCounter=1;
   //Tracks number of defeated opponents.
   var killCount=0;
   // This will console log out the character's base info and stats to the console. Commenting out.
@@ -66,33 +70,33 @@ $(document).ready(function()
 
   // This function will render a character div to the page.
   // The character rendered and the area to which they are rendered.
-  var renderOne = function(character, renderArea, charStatus)
+  var showCharacter = function(character, showArea, characterStatus)
   {
-    var charDiv = $("<div class='character' data-name='" + character.name + "'>");
+    var characterDiv = $("<div class='character' dataName='" + character.name + "'>");
     // This will be the name displayed at the top of the div
-    var charName = $("<div class='characterName'>").text(character.name);
+    var characterName = $("<div class='characterName'>").text(character.name);
     // Image to be displayed within the object
-    var charImage = $("<img alt='image' class='characterImage'>").attr("src", character.imageUrl);
+    var characterImage = $("<img alt='image' class='characterImage'>").attr("src", character.imageUrl);
     // Health of each character that is displayed within the object
-    var charHealth = $("<div class='characterHealth'>").text(character.health);
-    charDiv.append(charName).append(charImage).append(charHealth);
-    $(renderArea).append(charDiv);
+    var characterHealth = $("<div class='characterHealth'>").text(character.health);
+    characterDiv.append(characterName).append(characterImage).append(characterHealth);
+    $(showArea).append(characterDiv);
 
     // If the character is an enemy or defender (the active opponent), add the appropriate class
-    if(charStatus === "enemy")
+    if(characterStatus === "enemy")
     {
-      $(charDiv).addClass("enemy");
+      $(characterDiv).addClass("enemy");
     }
-    else if (charStatus === "defender")
+    else if (characterStatus === "defender")
     {
-      //Populate currDefender with the selected opponent's information.
-      currDefender = character;
-      $(charDiv).addClass("target-enemy");
+      //Populate currentDefender with the selected opponent's information.
+      currentDefender = character;
+      $(characterDiv).addClass("enemyTarget");
     }
   };
 
   // Function that handles game messages
-  var renderMessage = function(message)
+  var showMessage = function(message)
   {
     // This creates the message and appends it to the page.
     var gameMessageSet = $("#gameMessage");
@@ -108,19 +112,19 @@ $(document).ready(function()
 
   // Rendering objects to the page (rather than just the console)
   // This function renders characters based on which area they need to be rendered in
-  var renderCharacters = function(charObj, areaRender)
+  var showMultipleCharacters = function(charObj, areaRender)
   {
     // "#characterSelectionSection" is the div where all the characters begin
     // If this is true, then all characters will render to the starting area
     if (areaRender === "#characterSelectionSection")
     {
       $(areaRender).empty();
-      // Loop through the characers object and call the renderOne function on each character to render their card
+      // Loop through the characers object and call the showCharacter function on each character to render their card
       for (var key in charObj)
       {
         if(charObj.hasOwnProperty(key))
         {
-          renderOne(charObj[key], areaRender, "");
+          showCharacter(charObj[key], areaRender, "");
         }
       }
     }
@@ -129,30 +133,30 @@ $(document).ready(function()
     // If this is true, we will need to render the selected character here.
     if (areaRender === "#selectedCharacter")
     {
-      renderOne(charObj, areaRender, "");
+      showCharacter(charObj, areaRender, "");
     }
 
     // "#currentEnemies" is the div where our "inactive" opponents will reside
     // If true, we will need to render the selected character here.
     if (areaRender === "#currentEnemies")
     {
-      // Loop through the combatants array and call the renderOne function to each character
+      // Loop through the fighters array and call the showCharacter function to each character
       for(var i=0; i < charObj.length; i++)
       {
-        renderOne(charObj[i], areaRender, "enemy");
+        showCharacter(charObj[i], areaRender, "enemy");
       }
 
       // Creating on click events for each enemy
       $(document).on("click", ".enemy", function()
       {
-        var name = ($(this).attr("data-name"));
+        var name = ($(this).attr("dataName"));
 
         //If there is no defender, the clicked enemy will become the defender.
         if ($("#defender").children().length === 0)
         {
-          renderCharacters(name, "#defender");
+          showMultipleCharacters(name, "#defender");
           $(this).hide();
-          renderMessage("clearMessage");
+          showMessage("clearMessage");
         }
       });
     }
@@ -164,11 +168,11 @@ $(document).ready(function()
       // Emptying the "#defender" div so that nothing is in there (so we won't get different results).
       $(areaRender).empty();
       // Match the combatant that has the same name as the selected object (described by the above on-click function)
-      for (var i=0; i<combatants.length; i++)
+      for (var i=0; i<fighters.length; i++)
       {
-        if(combatants[i].name === charObj)
+        if(fighters[i].name === charObj)
         {
-          renderOne(combatants[i], areaRender, "defender");
+          showCharacter(fighters[i], areaRender, "defender");
         }
       }
     }
@@ -178,7 +182,7 @@ $(document).ready(function()
     if (areaRender === "playerDamage")
     {
       $("#defender").empty();
-      renderOne(charObj, "#defender", "defender");
+      showCharacter(charObj, "#defender", "defender");
       lightsaberAttackCharacter.play();
     }
 
@@ -186,7 +190,7 @@ $(document).ready(function()
     if (areaRender === "enemyDamage")
     {
       $("#selectedCharacter").empty();
-      renderOne(charObj, "#selectedCharacter", "");
+      showCharacter(charObj, "#selectedCharacter", "");
       lightsaberAttackByDefender.play();
     }
 
@@ -195,7 +199,7 @@ $(document).ready(function()
     {
         $("#defender").empty();
         var gameStateMessage = ("You have defeated " + charObj.name + ", you can choose to fight another enemy, if you so desire.");
-        renderMessage(gameStateMessage);
+        showMessage(gameStateMessage);
         beatOpponent.play();
     }
   };
@@ -218,13 +222,13 @@ $(document).ready(function()
   };
 
   // Render all the characters to the page when the game starts.
-  renderCharacters(characters, "#characterSelectionSection");
+  showMultipleCharacters(characters, "#characterSelectionSection");
   $(document).on("click", ".character", function()
   {
     // console.log("Click is Successful!");
 
     // This will save the clicked character's name
-    var name = $(this).attr("data-name");
+    var name = $(this).attr("dataName");
     console.log(name);
 
     // If a user has not yet selected a character, do this:
@@ -232,21 +236,21 @@ $(document).ready(function()
     {
       // We populate playableCharacter with the selected character's information
       playableCharacter = characters[name];
-      // Loop through the remaining characters, and push them to to the combatants array
+      // Loop through the remaining characters, and push them to to the fighters array
       for (var key in characters)
       {
         if (key !== name)
         {
-          combatants.push(characters[key]);
+          fighters.push(characters[key]);
         }
       }
       //This should show all the objects except the one that was chosen.
-      // console.log(combatants);
+      // console.log(fighters);
 
       //Render characters to new section and hide the character select div
       $("#characterSelectionSection").hide();
-      renderCharacters(playableCharacter, "#selectedCharacter");
-      renderCharacters(combatants, "#currentEnemies");
+      showMultipleCharacters(playableCharacter, "#selectedCharacter");
+      showMultipleCharacters(fighters, "#currentEnemies");
     }
   });
 
@@ -257,34 +261,34 @@ $(document).ready(function()
     {
 
       // Creates messages for our attack and our opponents counter attack.
-      var attackMessage = ("You attacked " + currDefender.name + " for " + (playableCharacter.attack * turnCounter) + " damage.");
-      var counterAttackMessage = (currDefender.name + " attacked you back for " + currDefender.enemyRetaliate + " damage.");
-      renderMessage("clearMessage");
+      var attackMessage = ("You attacked " + currentDefender.name + " for " + (playableCharacter.attack * turnDamageCounter) + " damage.");
+      var counterAttackMessage = (currentDefender.name + " attacked you back for " + currentDefender.enemyRetaliate + " damage.");
+      showMessage("clearMessage");
 
       // Reduce defender's health and attack value.
-      // The "-=" is a shortcut for updating the variable on the left ("currDefender.health") equal to the variable on the right subtracted from the variable on the left ("currDefender.health")
-      currDefender.health -= (playableCharacter.attack * turnCounter);
+      // The "-=" is a shortcut for updating the variable on the left ("currentDefender.health") equal to the variable on the right subtracted from the variable on the left ("currentDefender.health")
+      currentDefender.health -= (playableCharacter.attack * turnDamageCounter);
 
       // If the opponent still has health, do this:
-      if (currDefender.health>0)
+      if (currentDefender.health>0)
       {
         // Show the opponent's updated card.
-        renderCharacters(currDefender, "playerDamage");
+        showMultipleCharacters(currentDefender, "playerDamage");
 
         // Render the combat messages.
-        renderMessage(attackMessage);
-        renderMessage(counterAttackMessage);
+        showMessage(attackMessage);
+        showMessage(counterAttackMessage);
 
         // Reduce your health by the opponent's attack value.
-        playableCharacter.health -= currDefender.enemyRetaliate;
+        playableCharacter.health -= currentDefender.enemyRetaliate;
 
         // Render the player's updated character card.
-        renderCharacters(playableCharacter, "enemyDamage");
+        showMultipleCharacters(playableCharacter, "enemyDamage");
 
         //If you have less than zero health, the game ends. We call the restartGame function here.
         if (playableCharacter.health<=0)
         {
-          renderMessage("clearMessage");
+          showMessage("clearMessage");
           restartGame("You have been defeated. Please try again!");
           loseTheme.play();
           $("#attackButton").unbind("click");
@@ -295,7 +299,7 @@ $(document).ready(function()
       else
       {
         // Remove the opponent's card
-        renderCharacters(currDefender, "enemyDefeated");
+        showMultipleCharacters(currentDefender, "enemyDefeated");
         // Increment the killCount here.
         killCount++;
         // If you kill all the opponents, you win.
@@ -303,12 +307,12 @@ $(document).ready(function()
         // Call the restartGame function here.
         if (killCount>=3)
         {
-          renderMessage("clearMessage");
+          showMessage("clearMessage");
           restartGame("You Won! The Force is Strong With You!");
           winTheme.play();
         }
       }
     }
-    turnCounter++;
+    turnDamageCounter++;
   });
 });
