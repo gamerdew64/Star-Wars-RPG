@@ -26,3 +26,6 @@
   * The first background image is not supposed to start where it does, but the zooming effect works for this particular project.
 
   * Some browsers play the background music automatically, but others do not. There may be a webkit framework or something similar that needs to be added to the css
+
+  ## Link to Deployed Project:
+  https://gamerdew64.github.io/Star-Wars-RPG
